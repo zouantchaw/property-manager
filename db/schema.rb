@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20200509225755) do
 
   create_table "properties", force: :cascade do |t|
     t.string  "address"
-    t.string  "description"
-    t.integer "rent"
+    t.text    "description"
+    t.string  "rent"
     t.integer "user_id"
   end
 
