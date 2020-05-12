@@ -2,6 +2,6 @@
 
 <% @properties.each do |property| %>
     <h2><%= property.address %></h2>
-    <h3><%= property.description %></h3>
-    <h3><%= property.rent %></h3>
+    <h3>Description: <%= property.description %></h3>
+    <h3>Rent: $<%= property.rent %>/month</h3>
 <% end %>

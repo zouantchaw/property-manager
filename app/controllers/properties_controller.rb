@@ -5,4 +5,8 @@ class PropertiesController < ApplicationController
         erb :"/properties/index"
     end
 
+    get '/properties/new' do
+        erb :"/properties/new"
+    end
+
 end 
