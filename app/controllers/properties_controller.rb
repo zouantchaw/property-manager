@@ -6,7 +6,12 @@ class PropertiesController < ApplicationController
     end
 
     get '/properties/new' do
+        @tenants = Tenant.all 
         erb :"/properties/new"
+    end
+
+    post '/properties' do
+        binding.pry
     end
 
 end 

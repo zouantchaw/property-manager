@@ -2,15 +2,26 @@
 
 <div class="container">
 <form action="/properties" method="POST" id="survey-form">
-    <label>Address: </label>
-    <input type="text" name="address"><br>
+    <div class="form-group">
+        <label>Address: </label>
+        <input type="text" name="property[address]"><br>
 
-    <label>Description: </label>
-    <input type="text" name="description"><br>
+        <label>Description: </label>
+        <input type="text" name="property[description]"><br>
 
-    <label>Rent: </label>
-    <input type="text" name="rent"><br>
-    <br>
-    <input type="submit" name="submit" id="submit" class="submit-button">
+        <label>Rent: </label>
+        <input type="text" name="property[rent]"><br>
+        <br>
+    </div>
+    <p>Select one tenant to live in your property.</p>
+    <div class="form-group">
+        <h3>Tenants on the market for homes: </h3>
+        <% @tenants.each do |tenant|%>
+        <input type="checkbox" name="tenant[tenant_id][]" id="<%= tenant.id %> " value="<%= tenant.id%>"><%= tenant.name%></input><br>
+        <% end %>
+        <br>
+    </div>
+
+    <input type="submit" id="submit" class="submit-button" value="List">
 </form>
 </div>
