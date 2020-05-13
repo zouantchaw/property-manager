@@ -1,8 +1,13 @@
 class PropertiesController < ApplicationController 
 
     get '/properties' do
-        @properties = Property.all 
-        erb :"/properties/index"
+        if logged_in?
+            @properties = current_user.properties
+            binding.pry
+            erb :"/properties/index"
+        else
+            redirect '/login'
+        end 
     end
 
     get '/properties/new' do
@@ -11,7 +16,6 @@ class PropertiesController < ApplicationController
     end
 
     post '/properties' do
-        binding.pry
     end
 
 end 

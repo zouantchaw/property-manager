@@ -1,1 +1,5 @@
-<h1>Welcome!</h1>
+<% if @loggen_in %>
+    <p><a href="/logout">Log out</p>
+<% else %>
+<h2> Please <a href="/login">Sign In</a> or <a href="/signup">Create Account </h2>
+<% end %>
