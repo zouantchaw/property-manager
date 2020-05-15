@@ -13,11 +13,11 @@
         <input type="text" name="property[rent]"><br>
         <br>
     </div>
-    <p>Select one tenant to live in your property.</p>
+    <p>Select a tenant to live in your property. Or you can list your property and a tenant later.</p>
     <div class="form-group">
         <h3>Tenants on the market for homes: </h3>
         <% @tenants.each do |tenant|%>
-        <input type="checkbox" name="tenant[tenant_id][]" id="<%= tenant.id %> " value="<%= tenant.id%>"><%= tenant.name%></input><br>
+        <input type="radio" name="tenant[tenant_id][]" id="<%= tenant.id %> " value="<%= tenant.id%>"><%= tenant.name%>(Age: <%= tenant.age%>, Occupation: <%= tenant.occupation%>)<br></input><br>
         <% end %>
         <br>
     </div>

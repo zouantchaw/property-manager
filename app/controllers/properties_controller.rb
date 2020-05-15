@@ -2,8 +2,8 @@ class PropertiesController < ApplicationController
 
     get '/properties' do
         if logged_in?
-            @properties = current_user.properties
-            binding.pry
+            @user = current_user
+            @properties = @user.properties
             erb :"/properties/index"
         else
             redirect '/login'
@@ -11,11 +11,43 @@ class PropertiesController < ApplicationController
     end
 
     get '/properties/new' do
-        @tenants = Tenant.all 
-        erb :"/properties/new"
+        if logged_in?
+            @tenants = Tenant.all.select { |x| x.property_id == nil}
+            erb :"/properties/new"
+        else
+            redirect '/login'
+        end 
     end
 
     post '/properties' do
+        @property = current_user.properties.build(address: params[:property][:address], description: params[:property][:description], rent: params[:property][:rent])
+        if !@property.address.empty? && !@property.description.empty? && !@property.rent.empty?
+            @property.save
+            if params[:tenant]
+                @property.tenant = Tenant.find_by_id(params[:tenant][:tenant_id][0].to_i)
+            end 
+            redirect '/properties'
+        else 
+            redirect '/properties/new'
+        end 
     end
+
+    get '/properties/:id' do
+        if logged_in?
+            @property = Property.find_by_id(params[:id])
+            erb :"properties/show"
+        else 
+            redirect '/login'
+        end 
+    end 
+
+    get '/properties/:id/edit' do
+        if logged_in? 
+            @property = Property.find_by_id(params[:id])
+            erb :"properties/edit"
+        else 
+            redirect
+        end 
+    end 
 
 end 

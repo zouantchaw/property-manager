@@ -1,5 +1,13 @@
 class UsersController < ApplicationController 
 
+    get '/users/home' do
+        if logged_in? 
+            erb :"users/index"
+        else
+            redirect '/login'
+        end 
+    end 
+    
     get '/signup' do
         if logged_in?
             redirect '/properties'
@@ -22,7 +30,7 @@ class UsersController < ApplicationController
         unless logged_in?
             erb :'users/login'
         else
-            redirect '/properties'
+            redirect '/users/home'
         end 
     end
 
@@ -30,7 +38,7 @@ class UsersController < ApplicationController
         user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id 
-            redirect '/properties'
+            redirect '/users/home'
         else
             redirect '/login'
         end 
