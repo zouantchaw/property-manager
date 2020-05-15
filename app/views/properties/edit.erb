@@ -1,3 +1,44 @@
 <a href="/users/home">Home</a> <a href="/properties">Properties</a> <a href="/properties/<%= @property.id %>"> </a>
 
 <h1> Edit Property </h1>
+
+<form action="/properties/<%= @property.id%>" method="POST" id="survey-form">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <div class="form-group">
+        <label>Address: </label>
+        <input type="text" name="property[address]" value="<%= @property.address%>"><br>
+
+        <label>Description: </label>
+        <input type="text" name="property[description]" value="<%= @property.description%>"><br>
+
+        <label>Rent: </label>
+        <input type="text" name="property[rent]" value="<%= @property.rent%>"><br>
+        <br>
+    </div>
+    <% if @property.tenant %>
+        <h2> Current Tenant: </h2>
+        <h3> Name: <%= @property.tenant.name%> </h3>
+        <h3> Age: <%= @property.tenant.age%> </h3>
+        <h3> Occupation: <%= @property.tenant.occupation%> </h3>
+        <br>
+        <p>If you'd like to terminate your lease lease with <%= @property.tenant.name %>, select a new tenant below.</p>
+        <br>
+        <h3>Tenants on the market for homes: </h3>
+        <% @tenants.each do |tenant|%>
+        <input type="radio" name="tenant[tenant_id][]" id="<%= tenant.id %> " value="<%= tenant.id%>"><%= tenant.name%>(Age: <%= tenant.age%>, Occupation: <%= tenant.occupation%>)<br></input><br>
+        <% end %>
+        <br>
+    <% else %>
+        <p>Select a tenant to live in your property. Or you can list your property now and add a tenant later.</p>
+        <div class="form-group">
+            <h3>Tenants on the market for homes: </h3>
+            <% @tenants.each do |tenant|%>
+            <input type="radio" name="tenant[tenant_id][]" id="<%= tenant.id %> " value="<%= tenant.id%>"><%= tenant.name%>(Age: <%= tenant.age%>, Occupation: <%= tenant.occupation%>)<br></input><br>
+            <% end %>
+            <br>
+        </div>
+    <% end %>
+
+
+    <input type="submit" id="submit" class="submit-button" value="List">
+</form>

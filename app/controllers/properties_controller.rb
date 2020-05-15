@@ -44,6 +44,7 @@ class PropertiesController < ApplicationController
     get '/properties/:id/edit' do
         if logged_in? 
             @property = Property.find_by_id(params[:id])
+            @tenants = Tenant.all.select { |x| x.property_id == nil}
             erb :"properties/edit"
         else 
             redirect
