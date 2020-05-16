@@ -3,9 +3,9 @@
 <h1><%= @user.name.capitalize %>, here's a list of all your properties:</h1>
 
 <% @properties.each do |property| %>
-    <h2><%= property.address %></h2>
+    <a href="/properties/<%= property.id %>"><h2><%= property.address %></h2></a>
     <h3>Description: <%= property.description %></h3>
     <h3>Rent: $<%= property.rent %>/month</h3>
 <% end %>
 
-<h3><a href="/properties/new">List A Property</a></h3>
+<h2><a href="/properties/new">List A Property</a></h2>

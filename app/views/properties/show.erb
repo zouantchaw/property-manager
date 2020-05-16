@@ -3,6 +3,18 @@
 
 <strong>Description: </strong><%= @property.description %> <br>
 <strong>Rent: </strong><%= @property.rent %> <br>
+<br>
+<% if @property.tenant %>
+    <h2> Current Tenant: </h2>
+    <h3> Name: <%= @property.tenant.name%> </h3>
+    <h3> Age: <%= @property.tenant.age%> </h3>
+    <h3> Occupation: <%= @property.tenant.occupation%> </h3>
+    <br>
+<% else %>
+    <p>This property currently does not have a tenant, select "Edit Propert" below to add a tenant.</p>
+<% end %>
+
+
 
 <div class="crud_options">
   <a class="edit_button" href="/properties/<%= @property.id %>/edit">Edit Property</a>

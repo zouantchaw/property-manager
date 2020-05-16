@@ -34,7 +34,7 @@ class PropertiesController < ApplicationController
 
     get '/properties/:id' do
         if logged_in?
-            @property = Property.find_by_id(params[:id])
+            @property = current_user.properties.find_by_id(params[:id])
             erb :"properties/show"
         else 
             redirect '/login'
@@ -43,7 +43,7 @@ class PropertiesController < ApplicationController
 
     get '/properties/:id/edit' do
         if logged_in? 
-            @property = Property.find_by_id(params[:id])
+            @property = current_user.properties.find_by_id(params[:id])
             @tenants = Tenant.all.select { |x| x.property_id == nil}
             erb :"properties/edit"
         else 
@@ -51,4 +51,21 @@ class PropertiesController < ApplicationController
         end 
     end 
 
+    patch '/properties/:id' do
+        @property = current_user.properties.find_by_id(params[:id])
+        @property.update(params[:property])
+        if params[:tenant]
+            @property.tenant = Tenant.find_by_id(params[:tenant][:tenant_id][0].to_i)
+            redirect "/properties/#{@property.id}"
+        else
+            redirect "/properties/#{@property.id}"
+        end
+    end
+
+    delete '/properties/:id' do
+        @property = current_user.properties.find_by_id(params[:id])
+        @property.tenant = nil  
+        @property.destroy 
+        redirect '/properties'
+    end 
 end 
