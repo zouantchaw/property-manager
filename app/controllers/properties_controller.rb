@@ -2,8 +2,8 @@ class PropertiesController < ApplicationController
 
     get '/properties' do
         if logged_in?
-            @user = current_user
-            @properties = @user.properties
+            @first_name = current_user.name.split[0]
+            @properties = current_user.properties
             erb :"/properties/index"
         else
             redirect '/login'

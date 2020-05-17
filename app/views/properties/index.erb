@@ -1,6 +1,10 @@
 <a href="/users/home">Home</a>
 
-<h1><%= @user.name.capitalize %>, here's a list of all your properties:</h1>
+<% if current_user.properties.empty? %>
+    <h2><%= @first_name.capitalize%>, looks like your don't have any properties listed. Click on "List A Property" to get the process going!</h2>
+<% else %>
+<h1><%= @first_name.capitalize %>, here's a list of all your properties:</h1>
+<% end %>
 
 <% @properties.each do |property| %>
     <a href="/properties/<%= property.id %>"><h2><%= property.address %></h2></a>
