@@ -10,6 +10,14 @@
     <a href="/properties/<%= property.id %>"><h2><%= property.address %></h2></a>
     <h3>Description: <%= property.description %></h3>
     <h3>Rent: $<%= property.rent %>/month</h3>
+    <% if property.tenant %>
+        <p>Tenant Info: </p>
+        <h3>Name: <%= property.tenant.name %></h3>
+        <h3>Age: <%= property.tenant.age %></h3>
+        <h3>Occupation: <%= property.tenant.occupation %></h3>
+    <% else %>
+    <h3>** This propety is empty. Click on property link to add a tenant!<h3>
+    <% end %>
 <% end %>
 
 <h2><a href="/properties/new">List A Property</a></h2>
